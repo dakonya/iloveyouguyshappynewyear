@@ -7,12 +7,12 @@ const CAPSULE_OPEN_AT = "2026-12-31T00:00:00+05:00";
 
 // Список друзей — редачь под себя
 const FRIENDS = [
-  { name: "Азамат", tag: "самый надёжный" },
-  { name: "Данияр", tag: "мозг команды" },
-  { name: "Айбек", tag: "энергия" },
-  { name: "Бекарыс", tag: "лучший саппорт" },
-  { name: "Зейнулла", tag: "спокойная сила" },
-  { name: "Азат", tag: "всегда на связи" },
+  { name: "Аружан", tag: "самый лучший инет друг!" },
+  { name: "Азиза, Кымбат, Аяна", tag: "лучшие волонтеры!" },
+  { name: "Айбын, Бекиш", tag: "лучшие руммейты " },
+  { name: "Карина, Андрей, Нуркамал, Альтаир, Томирис", tag: "лучшие братья!!!" },
+  { name: "Темик, Алимгер, Ерали, Лиман, Эльдар", tag: "лучшие достыковские!" },
+  { name: "CS 2502", tag: "лучшая группа ever!" },
 ];
 
 // Итоги года — редачь под себя (очень легко)
@@ -35,16 +35,16 @@ const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
-function getParam(key){
+function getParam(key) {
   const p = new URLSearchParams(location.search);
   return p.get(key);
 }
 
-async function copy(text){
-  try{
+async function copy(text) {
+  try {
     await navigator.clipboard.writeText(text);
     toast("Скопировано ✅");
-  }catch{
+  } catch {
     const ta = document.createElement("textarea");
     ta.value = text; document.body.appendChild(ta);
     ta.select(); document.execCommand("copy");
@@ -53,7 +53,7 @@ async function copy(text){
   }
 }
 
-function toast(msg){
+function toast(msg) {
   const el = document.createElement("div");
   el.textContent = msg;
   el.style.position = "fixed";
@@ -73,17 +73,17 @@ function toast(msg){
 }
 
 // маленькая защита для текста в модалке
-function escapeHtml(s){
+function escapeHtml(s) {
   return String(s)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 // ====== Персонализация ======
-function initPersonal(){
+function initPersonal() {
   const name = getParam("name");
   const heroTitle = $("#heroTitle");
   const heroText = $("#heroText");
@@ -91,7 +91,7 @@ function initPersonal(){
 
   wish.textContent = WISHES[Math.floor(Math.random() * WISHES.length)];
 
-  if(name){
+  if (name) {
     const safe = String(name).slice(0, 24);
     heroTitle.textContent = `С Новым годом, ${safe}! 🎄`;
     heroText.textContent =
@@ -100,39 +100,39 @@ function initPersonal(){
   }
 }
 
-function markGreeted(name){
+function markGreeted(name) {
   const key = "ng_greeted_v1";
   const list = JSON.parse(localStorage.getItem(key) || "[]");
-  if(!list.includes(name)) list.push(name);
+  if (!list.includes(name)) list.push(name);
   localStorage.setItem(key, JSON.stringify(list));
 }
 
-function isGreeted(name){
+function isGreeted(name) {
   const key = "ng_greeted_v1";
   const list = JSON.parse(localStorage.getItem(key) || "[]");
   return list.includes(name);
 }
 
 // ====== Анимация счётчиков ======
-function animateCounters(){
+function animateCounters() {
   const els = $$(".statNum");
   const start = performance.now();
   const duration = 900;
 
-  function step(t){
+  function step(t) {
     const k = clamp((t - start) / duration, 0, 1);
     const ease = 1 - Math.pow(1 - k, 3);
-    for(const el of els){
+    for (const el of els) {
       const target = Number(el.dataset.count || 0);
       el.textContent = String(Math.round(target * ease));
     }
-    if(k < 1) requestAnimationFrame(step);
+    if (k < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
 
 // ====== Рендер ======
-function renderFriends(){
+function renderFriends() {
   const root = $("#friendsList");
   root.innerHTML = "";
 
@@ -151,7 +151,7 @@ function renderFriends(){
   });
 }
 
-function renderRecap(){
+function renderRecap() {
   const root = $("#recapCards");
   root.innerHTML = "";
 
@@ -177,7 +177,7 @@ const modalBody = $("#modalBody");
 const modalPrimary = $("#modalPrimary");
 const modalSecondary = $("#modalSecondary");
 
-function openModal({ title, sub, bodyHTML, primaryText="Ок", secondaryText="Закрыть", onPrimary=null }){
+function openModal({ title, sub, bodyHTML, primaryText = "Ок", secondaryText = "Закрыть", onPrimary = null }) {
   modalTitle.textContent = title;
   modalSub.textContent = sub || "";
   modalBody.innerHTML = bodyHTML || "";
@@ -185,7 +185,7 @@ function openModal({ title, sub, bodyHTML, primaryText="Ок", secondaryText="З
   modalSecondary.textContent = secondaryText;
 
   modalPrimary.onclick = () => {
-    if(onPrimary) onPrimary();
+    if (onPrimary) onPrimary();
     closeModal();
   };
   modalSecondary.onclick = closeModal;
@@ -193,7 +193,7 @@ function openModal({ title, sub, bodyHTML, primaryText="Ок", secondaryText="З
   modal.classList.remove("hidden");
 }
 
-function closeModal(){
+function closeModal() {
   modal.classList.add("hidden");
 }
 
@@ -201,14 +201,14 @@ $("#modalClose").addEventListener("click", closeModal);
 $("#modalBack").addEventListener("click", closeModal);
 
 // ====== Персональная ссылка другу ======
-function friendLink(name){
+function friendLink(name) {
   const base = `https://${OWNER}.github.io/${REPO}/`;
   const u = new URL(base);
   u.searchParams.set("name", name);
   return u.toString();
 }
 
-function openFriendModal(f){
+function openFriendModal(f) {
   const link = friendLink(f.name);
   openModal({
     title: `🎁 Поздравить: ${f.name}`,
@@ -237,7 +237,7 @@ let W = 0, H = 0;
 let particles = [];
 let running = true;
 
-function resize(){
+function resize() {
   const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
   W = Math.floor(window.innerWidth);
   H = Math.floor(window.innerHeight);
@@ -249,42 +249,42 @@ function resize(){
 }
 window.addEventListener("resize", resize);
 
-function burst(x = W/2, y = H/3, power = 140){
+function burst(x = W / 2, y = H / 3, power = 140) {
   const count = 160;
-  for(let i=0;i<count;i++){
+  for (let i = 0; i < count; i++) {
     const a = Math.random() * Math.PI * 2;
-    const sp = (Math.random() * 1 + 0.35) * power/10;
+    const sp = (Math.random() * 1 + 0.35) * power / 10;
     particles.push({
       x, y,
       vx: Math.cos(a) * sp,
-      vy: Math.sin(a) * sp - (Math.random()*2),
-      g: 0.12 + Math.random()*0.08,
-      r: 2 + Math.random()*3,
-      rot: Math.random()*Math.PI,
+      vy: Math.sin(a) * sp - (Math.random() * 2),
+      g: 0.12 + Math.random() * 0.08,
+      r: 2 + Math.random() * 3,
+      rot: Math.random() * Math.PI,
       vr: (Math.random() - 0.5) * 0.25,
-      life: 180 + Math.random()*60,
+      life: 180 + Math.random() * 60,
       t: 0,
       shape: Math.random() < 0.5 ? "rect" : "circle",
-      hue: Math.random()*360
+      hue: Math.random() * 360
     });
   }
 }
 
-function tick(){
-  if(!running) return;
-  ctx.clearRect(0,0,W,H);
+function tick() {
+  if (!running) return;
+  ctx.clearRect(0, 0, W, H);
 
   // лёгкий “звёздный” шум
   ctx.globalAlpha = 0.06;
-  for(let i=0;i<40;i++){
-    const x = (Math.random()*W)|0;
-    const y = (Math.random()*H)|0;
-    ctx.fillRect(x,y,1,1);
+  for (let i = 0; i < 40; i++) {
+    const x = (Math.random() * W) | 0;
+    const y = (Math.random() * H) | 0;
+    ctx.fillRect(x, y, 1, 1);
   }
   ctx.globalAlpha = 1;
 
   particles = particles.filter(p => p.t < p.life);
-  for(const p of particles){
+  for (const p of particles) {
     p.t += 1;
     p.x += p.vx;
     p.y += p.vy;
@@ -298,11 +298,11 @@ function tick(){
     ctx.globalAlpha = alpha;
 
     ctx.fillStyle = `hsla(${p.hue}, 90%, 70%, ${alpha})`;
-    if(p.shape === "rect"){
-      ctx.fillRect(-p.r, -p.r, p.r*2.2, p.r*1.6);
-    }else{
+    if (p.shape === "rect") {
+      ctx.fillRect(-p.r, -p.r, p.r * 2.2, p.r * 1.6);
+    } else {
       ctx.beginPath();
-      ctx.arc(0, 0, p.r, 0, Math.PI*2);
+      ctx.arc(0, 0, p.r, 0, Math.PI * 2);
       ctx.fill();
     }
     ctx.restore();
@@ -315,42 +315,42 @@ function tick(){
 let musicOn = false;
 let userStartedMusic = false;
 
-function initMusic(){
+function initMusic() {
   const audio = $("#bgm");
   const btn = $("#btnMusic");
   const slider = $("#musicVolume");
 
-  if(!audio || !btn) return;
+  if (!audio || !btn) return;
 
   // стартовая громкость
-  if(slider){
+  if (slider) {
     audio.volume = Number(slider.value || 35) / 100;
     slider.addEventListener("input", () => {
       audio.volume = Number(slider.value) / 100;
-      if(userStartedMusic) toast("Громкость: " + slider.value + "%");
+      if (userStartedMusic) toast("Громкость: " + slider.value + "%");
     });
   } else {
     audio.volume = 0.35;
   }
 
-  function setLabel(){
+  function setLabel() {
     btn.textContent = musicOn ? "Музыка: ON" : "Музыка: OFF";
   }
 
-  async function toggle(){
-    try{
-      if(!musicOn){
+  async function toggle() {
+    try {
+      if (!musicOn) {
         await audio.play(); // разрешено только после клика
         musicOn = true;
         userStartedMusic = true;
         toast("🎵 Музыка включена");
-      }else{
+      } else {
         audio.pause();
         musicOn = false;
         toast("⏸ Музыка выключена");
       }
       setLabel();
-    }catch(e){
+    } catch (e) {
       toast("Не могу включить музыку. Проверь assets/song.mp3");
       console.warn(e);
     }
@@ -363,7 +363,7 @@ function initMusic(){
 // ====== Таймкапсула ======
 const CAPSULE_KEY = "ng_capsule_v1";
 
-function initCapsule(){
+function initCapsule() {
   const toEl = $("#capsuleTo");
   const textEl = $("#capsuleText");
   const saveBtn = $("#btnSaveCapsule");
@@ -371,23 +371,23 @@ function initCapsule(){
   const openBtn = $("#btnOpenCapsule");
   const dateLabel = $("#capsuleDateLabel");
 
-  if(dateLabel) dateLabel.textContent = new Date(CAPSULE_OPEN_AT).toLocaleString();
+  if (dateLabel) dateLabel.textContent = new Date(CAPSULE_OPEN_AT).toLocaleString();
 
-  function load(){
+  function load() {
     const raw = localStorage.getItem(CAPSULE_KEY);
-    if(!raw) return;
-    try{
+    if (!raw) return;
+    try {
       const data = JSON.parse(raw);
-      if(toEl) toEl.value = data.to || "";
-      if(textEl) textEl.value = data.text || "";
-    }catch{}
+      if (toEl) toEl.value = data.to || "";
+      if (textEl) textEl.value = data.text || "";
+    } catch { }
   }
 
-  function save(){
+  function save() {
     const to = (toEl?.value || "").trim();
     const text = (textEl?.value || "").trim();
 
-    if(!text){
+    if (!text) {
       toast("Напиши сообщение 🙂");
       return;
     }
@@ -397,20 +397,20 @@ function initCapsule(){
     toast("✅ Таймкапсула сохранена");
   }
 
-  function clear(){
+  function clear() {
     localStorage.removeItem(CAPSULE_KEY);
-    if(toEl) toEl.value = "";
-    if(textEl) textEl.value = "";
+    if (toEl) toEl.value = "";
+    if (textEl) textEl.value = "";
     toast("🧹 Удалено");
   }
 
-  function canOpen(){
+  function canOpen() {
     return Date.now() >= new Date(CAPSULE_OPEN_AT).getTime();
   }
 
-  function openCapsule(){
+  function openCapsule() {
     const raw = localStorage.getItem(CAPSULE_KEY);
-    if(!raw){
+    if (!raw) {
       openModal({
         title: "Таймкапсула пуста",
         sub: "Сначала сохрани сообщение",
@@ -422,7 +422,7 @@ function initCapsule(){
 
     const data = JSON.parse(raw);
 
-    if(!canOpen()){
+    if (!canOpen()) {
       openModal({
         title: "🔒 Ещё рано",
         sub: "Капсула запечатана",
@@ -452,7 +452,7 @@ ${escapeHtml(data.text)}
         </div>
       `,
       primaryText: "🧨 Салют",
-      onPrimary: () => burst(W*0.5, H*0.28, 180)
+      onPrimary: () => burst(W * 0.5, H * 0.28, 180)
     });
   }
 
@@ -465,7 +465,7 @@ ${escapeHtml(data.text)}
 
 // ====== Кнопки UX ======
 $("#btnConfetti").addEventListener("click", () => {
-  burst(Math.random()*W, H*0.25 + Math.random()*H*0.15, 170);
+  burst(Math.random() * W, H * 0.25 + Math.random() * H * 0.15, 170);
   toast("🎆 Бум!");
 });
 
@@ -508,5 +508,5 @@ initCapsule();
 tick();
 
 // маленький авто-салют при заходе
-setTimeout(() => burst(W*0.55, H*0.28, 150), 350);
-setTimeout(() => burst(W*0.35, H*0.32, 140), 650);
+setTimeout(() => burst(W * 0.55, H * 0.28, 150), 350);
+setTimeout(() => burst(W * 0.35, H * 0.32, 140), 650);
