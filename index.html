@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NG Wrapped — 2025 → 2026</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <canvas id="fx"></canvas>
 
@@ -29,9 +31,9 @@
     <section class="hero card">
       <div class="heroLeft">
         <div class="kicker">2025 → 2026</div>
-        <h1 id="heroTitle">С Новым годом! 🎄</h1>
+        <h1 id="heroTitle">С Новым годом брошки! 🎄</h1>
         <p id="heroText" class="muted">
-          Пусть 2026 принесёт спокойную голову, сильные победы и тёплых людей рядом.
+          Пусть 2026 принесёт лучших людей, побед и успеха!
         </p>
 
         <div class="row">
@@ -39,36 +41,32 @@
           <button id="btnOpenRecap" class="btn ghost">Итоги года</button>
         </div>
 
-        <div class="hint muted">
-          Фишка: добавь к ссылке <span class="code">?name=Имя</span> и будет персональное поздравление.
-        </div>
-      </div>
 
-      <div class="heroRight">
-        <div class="countGrid">
-          <div class="stat">
-            <div class="statNum" data-count="12">0</div>
-            <div class="statLbl">месяцев прожито</div>
+        <div class="heroRight">
+          <div class="countGrid">
+            <div class="stat">
+              <div class="statNum" data-count="12">0</div>
+              <div class="statLbl">месяцев прожито</div>
+            </div>
+            <div class="stat">
+              <div class="statNum" data-count="365">0</div>
+              <div class="statLbl">дней опыта</div>
+            </div>
+            <div class="stat">
+              <div class="statNum" data-count="100">0</div>
+              <div class="statLbl">% веры в тебя</div>
+            </div>
+            <div class="stat">
+              <div class="statNum" data-count="2026">0</div>
+              <div class="statLbl">новый уровень</div>
+            </div>
           </div>
-          <div class="stat">
-            <div class="statNum" data-count="365">0</div>
-            <div class="statLbl">дней опыта</div>
-          </div>
-          <div class="stat">
-            <div class="statNum" data-count="100">0</div>
-            <div class="statLbl">% веры в тебя</div>
-          </div>
-          <div class="stat">
-            <div class="statNum" data-count="2026">0</div>
-            <div class="statLbl">новый уровень</div>
-          </div>
-        </div>
 
-        <div class="badge">
-          <div class="badgeTitle">🎁 Тёплое пожелание</div>
-          <div id="wish" class="badgeText"></div>
+          <div class="badge">
+            <div class="badgeTitle">🎁 Тёплое пожелание</div>
+            <div id="wish" class="badgeText"></div>
+          </div>
         </div>
-      </div>
     </section>
 
     <section class="grid">
@@ -83,7 +81,6 @@
       <section class="card">
         <div class="sectionTitle">
           <h2>Итоги 2025</h2>
-          <p class="muted">Это “обложка” года. Можешь изменить в <span class="code">app.js</span>.</p>
         </div>
         <div id="recapCards" class="recap"></div>
       </section>
@@ -101,7 +98,8 @@
           <input id="capsuleTo" class="input" placeholder="например: Я в конце 2026 / Азамат / всем друзьям" />
 
           <label class="label">Сообщение</label>
-          <textarea id="capsuleText" class="textarea" placeholder="Что ты хочешь сказать себе (или друзьям) в будущем?"></textarea>
+          <textarea id="capsuleText" class="textarea"
+            placeholder="Что ты хочешь сказать себе (или друзьям) в будущем?"></textarea>
 
           <div class="row">
             <button id="btnSaveCapsule" class="btn">Сохранить</button>
@@ -117,7 +115,7 @@
           <div class="miniCard">
             <div class="miniTitle">🔓 Открытие</div>
             <div class="miniText muted">
-              Если дата ещё не наступила — будет замок. Когда наступит — откроется текст.
+              если дата ещё не наступила - будет замок. когда наступит - откроется текст.
             </div>
             <div class="row" style="margin-top:12px;">
               <button id="btnOpenCapsule" class="btn ghost">Открыть капсулу</button>
@@ -166,4 +164,5 @@
 
   <script src="app.js"></script>
 </body>
+
 </html>
