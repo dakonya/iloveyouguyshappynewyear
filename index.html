@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NG Wrapped — 2025 → 2026</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="fx"></canvas>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🎆</span>
+      <div class="brandText">
+        <div class="brandTitle">NG Wrapped</div>
+        <div class="brandSub">итоги года + поздравления</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="btnMusic" class="btn ghost">Музыка: OFF</button>
+      <button id="btnConfetti" class="btn ghost">Салют</button>
+      <button id="btnShare" class="btn">Скопировать мою ссылку</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero card">
+      <div class="heroLeft">
+        <div class="kicker">2025 → 2026</div>
+        <h1 id="heroTitle">С Новым годом! 🎄</h1>
+        <p id="heroText" class="muted">
+          Пусть 2026 принесёт спокойную голову, сильные победы и тёплых людей рядом.
+        </p>
+
+        <div class="row">
+          <button id="btnOpenFriends" class="btn">Открыть друзей</button>
+          <button id="btnOpenRecap" class="btn ghost">Итоги года</button>
+        </div>
+
+        <div class="hint muted">
+          Фишка: добавь к ссылке <span class="code">?name=Имя</span> и будет персональное поздравление.
+        </div>
+      </div>
+
+      <div class="heroRight">
+        <div class="countGrid">
+          <div class="stat">
+            <div class="statNum" data-count="12">0</div>
+            <div class="statLbl">месяцев прожито</div>
+          </div>
+          <div class="stat">
+            <div class="statNum" data-count="365">0</div>
+            <div class="statLbl">дней опыта</div>
+          </div>
+          <div class="stat">
+            <div class="statNum" data-count="100">0</div>
+            <div class="statLbl">% веры в тебя</div>
+          </div>
+          <div class="stat">
+            <div class="statNum" data-count="2026">0</div>
+            <div class="statLbl">новый уровень</div>
+          </div>
+        </div>
+
+        <div class="badge">
+          <div class="badgeTitle">🎁 Тёплое пожелание</div>
+          <div id="wish" class="badgeText"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <section class="card">
+        <div class="sectionTitle">
+          <h2>Друзья</h2>
+          <p class="muted">Нажми на друга → скопируй персональную ссылку.</p>
+        </div>
+        <div id="friendsList" class="friends"></div>
+      </section>
+
+      <section class="card">
+        <div class="sectionTitle">
+          <h2>Итоги 2025</h2>
+          <p class="muted">Это “обложка” года. Можешь изменить в <span class="code">app.js</span>.</p>
+        </div>
+        <div id="recapCards" class="recap"></div>
+      </section>
+    </section>
+
+    <section class="card capsule">
+      <div class="sectionTitle">
+        <h2>Таймкапсула в 2026 🎁</h2>
+        <p class="muted">Напиши сообщение себе/друзьям. Сохранится на этом устройстве.</p>
+      </div>
+
+      <div class="capsuleGrid">
+        <div class="capsuleLeft">
+          <label class="label">Кому (необязательно)</label>
+          <input id="capsuleTo" class="input" placeholder="например: Я в конце 2026 / Азамат / всем друзьям" />
+
+          <label class="label">Сообщение</label>
+          <textarea id="capsuleText" class="textarea" placeholder="Что ты хочешь сказать себе (или друзьям) в будущем?"></textarea>
+
+          <div class="row">
+            <button id="btnSaveCapsule" class="btn">Сохранить</button>
+            <button id="btnClearCapsule" class="btn ghost">Очистить</button>
+          </div>
+
+          <div class="muted" style="font-size:12px;margin-top:10px;">
+            Дата открытия: <span class="code" id="capsuleDateLabel"></span>
+          </div>
+        </div>
+
+        <div class="capsuleRight">
+          <div class="miniCard">
+            <div class="miniTitle">🔓 Открытие</div>
+            <div class="miniText muted">
+              Если дата ещё не наступила — будет замок. Когда наступит — откроется текст.
+            </div>
+            <div class="row" style="margin-top:12px;">
+              <button id="btnOpenCapsule" class="btn ghost">Открыть капсулу</button>
+            </div>
+          </div>
+
+          <div class="miniCard">
+            <div class="miniTitle">🎚 Музыка</div>
+            <div class="miniText muted">Громкость</div>
+            <input id="musicVolume" class="slider" type="range" min="0" max="100" value="35" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer muted">
+      Сделано с ♥ для друзей. Если ты это читаешь — ты важен.
+    </footer>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modalBack" id="modalBack"></div>
+    <div class="modalCard">
+      <div class="modalHead">
+        <div>
+          <div id="modalTitle" class="modalTitle">Заголовок</div>
+          <div id="modalSub" class="muted">подзаголовок</div>
+        </div>
+        <button id="modalClose" class="iconBtn" aria-label="Закрыть">✕</button>
+      </div>
+
+      <div id="modalBody" class="modalBody"></div>
+
+      <div class="modalFoot">
+        <button id="modalPrimary" class="btn">Ок</button>
+        <button id="modalSecondary" class="btn ghost">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music -->
+  <audio id="bgm" preload="auto" loop>
+    <source src="assets/song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
